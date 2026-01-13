@@ -163,6 +163,9 @@ function switchTab(tabName) {
         case 'effectif':
             loadStaff();
             break;
+        case 'fiches-employe':
+            initFichesEmploye();
+            break;
         case 'dispatch':
             initDispatch();
             break;
