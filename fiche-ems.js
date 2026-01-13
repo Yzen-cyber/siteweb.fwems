@@ -4,7 +4,12 @@
 // ==============================
 // DONNÉES GÉNÉRÉES DYNAMIQUEMENT
 // ==============================
-let fichesEmployeData = [];
+if (!window.fichesEmployeData) {
+    window.fichesEmployeData = [];
+}
+if (!window.filteredFichesEmploye) {
+    window.filteredFichesEmploye = [];
+}
 
 function generateFichesEmploye() {
     if (!window.staffData || window.staffData.length === 0) {
@@ -26,15 +31,13 @@ function generateFichesEmploye() {
     }));
 }
 
-let filteredFichesEmploye = [];
-
 // ==============================
 // INITIALISATION
 // ==============================
 function initFichesEmploye() {
-    fichesEmployeData = generateFichesEmploye();
-    filteredFichesEmploye = [...fichesEmployeData];
-    displayFichesEmploye(filteredFichesEmploye);
+    window.fichesEmployeData = generateFichesEmploye();
+    window.filteredFichesEmploye = [...window.fichesEmployeData];
+    displayFichesEmploye(window.filteredFichesEmploye);
 }
 
 // ==============================
@@ -119,14 +122,14 @@ function filterFichesEmploye() {
     const roleFilter = document.getElementById('ficheEmployeRoleFilter').value;
     const searchInput = document.getElementById('ficheEmployeSearch').value.toLowerCase();
     
-    filteredFichesEmploye = fichesEmployeData.filter(fiche => {
+    window.filteredFichesEmploye = window.fichesEmployeData.filter(fiche => {
         const matchRole = !roleFilter || fiche.role === roleFilter;
         const matchSearch = !searchInput || fiche.nom.toLowerCase().includes(searchInput);
         
         return matchRole && matchSearch;
     });
     
-    displayFichesEmploye(filteredFichesEmploye);
+    displayFichesEmploye(window.filteredFichesEmploye);
 }
 
 // ==============================
