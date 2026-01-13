@@ -1,0 +1,232 @@
+{
+  "grades": [
+    "EMR",
+    "EMT Basic",
+    "EMT Intermédiaire",
+    "EMT Advanced",
+    "Master EMT",
+    "Junior Paramedic",
+    "Senior Paramedic",
+    "Commander",
+    "Directeur Adjoint",
+    "Directeur"
+  ],
+  "personnel": [
+    {
+      "grade": "EMT Intermédiaire",
+      "matricule": "17",
+      "idUnique": "165552",
+      "nom": "Dash Wild"
+    },
+    {
+      "grade": "EMT Intermédiaire",
+      "matricule": "90",
+      "idUnique": "70714",
+      "nom": "Nina Périphérique"
+    },
+    {
+      "grade": "EMT Intermédiaire",
+      "matricule": "83",
+      "idUnique": "8720",
+      "nom": "Yanis Bamba"
+    },
+    {
+      "grade": "EMT Intermédiaire",
+      "matricule": "92",
+      "idUnique": "126256",
+      "nom": "Ali Chorba"
+    },
+    {
+      "grade": "EMT Intermédiaire",
+      "matricule": "54",
+      "idUnique": "250258",
+      "nom": "Kaïs Marshall"
+    },
+    {
+      "grade": "EMT Basic",
+      "matricule": "24",
+      "idUnique": "232081",
+      "nom": "Maxime Rak"
+    },
+    {
+      "grade": "EMT Basic",
+      "matricule": "19",
+      "idUnique": "151749",
+      "nom": "Xenia Eliah"
+    },
+    {
+      "grade": "EMT Basic",
+      "matricule": "78",
+      "idUnique": "148160",
+      "nom": "Yassine Zerouni"
+    },
+    {
+      "grade": "EMT Basic",
+      "matricule": "67",
+      "idUnique": "251741",
+      "nom": "Miguel Diaz"
+    },
+    {
+      "grade": "EMT Basic",
+      "matricule": "15",
+      "idUnique": "100975",
+      "nom": "Nessayem Bensalah"
+    },
+    {
+      "grade": "EMR",
+      "matricule": "91",
+      "idUnique": "143639",
+      "nom": "Brams Sko"
+    },
+    {
+      "grade": "EMR",
+      "matricule": "69",
+      "idUnique": "233309",
+      "nom": "Friandises Saydou"
+    },
+    {
+      "grade": "EMR",
+      "matricule": "93",
+      "idUnique": "206520",
+      "nom": "James Wood"
+    },
+    {
+      "grade": "EMR",
+      "matricule": "14",
+      "idUnique": "253326",
+      "nom": "Sofyane Anderson"
+    },
+    {
+      "grade": "EMR",
+      "matricule": "13",
+      "idUnique": "50937",
+      "nom": "Guzman Ruiz"
+    },
+    {
+      "grade": "EMR",
+      "matricule": "24",
+      "idUnique": "85526",
+      "nom": "Horacio Montero"
+    },
+    {
+      "grade": "EMR",
+      "matricule": "42",
+      "idUnique": "142751",
+      "nom": "Bakhaw Brooks"
+    },
+    {
+      "grade": "EMR",
+      "matricule": "37",
+      "idUnique": "251916",
+      "nom": "Daniels Brooks"
+    },
+    {
+      "grade": "EMR",
+      "matricule": "20",
+      "idUnique": "144556",
+      "nom": "Jessie Perez"
+    },
+    {
+      "grade": "EMR",
+      "matricule": "63",
+      "idUnique": "102106",
+      "nom": "Ayden Baraoui"
+    },
+    {
+      "grade": "EMR",
+      "matricule": "34",
+      "idUnique": "90799",
+      "nom": "Derya Gaviria"
+    },
+    {
+      "grade": "EMR",
+      "matricule": "30",
+      "idUnique": "203272",
+      "nom": "Marco Martinez"
+    },
+    {
+      "grade": "EMR",
+      "matricule": "63",
+      "idUnique": "252875",
+      "nom": "William News"
+    },
+    {
+      "grade": "EMR",
+      "matricule": "79",
+      "idUnique": "2127",
+      "nom": "Angelina Hilton"
+    },
+    {
+      "grade": "EMR",
+      "matricule": "22",
+      "idUnique": "149625",
+      "nom": "Swan Lee"
+    },
+    {
+      "grade": "Directeur",
+      "matricule": "01",
+      "idUnique": "196219",
+      "nom": "Karl Pierce"
+    },
+    {
+      "grade": "Directeur Adjoint",
+      "matricule": "03",
+      "idUnique": "34940",
+      "nom": "Zak Carter"
+    },
+    {
+      "grade": "Commander",
+      "matricule": "07",
+      "idUnique": "65711",
+      "nom": "Kahverengi Yildiz"
+    },
+    {
+      "grade": "Commander",
+      "matricule": "05",
+      "idUnique": "77323",
+      "nom": "Mike Mouk"
+    },
+    {
+      "grade": "Senior Paramedic",
+      "matricule": "09",
+      "idUnique": "49590",
+      "nom": "Kader Yamaha"
+    },
+    {
+      "grade": "Junior Paramedic",
+      "matricule": "08",
+      "idUnique": "152149",
+      "nom": "Tyron Fasol"
+    },
+    {
+      "grade": "Junior Paramedic",
+      "matricule": "94",
+      "idUnique": "238769",
+      "nom": "Niya Wahid"
+    },
+    {
+      "grade": "Master EMT",
+      "matricule": "80",
+      "idUnique": "89244",
+      "nom": "Mariposa Dos-sontos"
+    },
+    {
+      "grade": "EMT Advanced",
+      "matricule": "77",
+      "idUnique": "152149",
+      "nom": "Walker Johnson"
+    },
+    {
+      "grade": "EMT Advanced",
+      "matricule": "31",
+      "idUnique": "250135",
+      "nom": "Osman Sahin"
+    },
+    {
+      "grade": "EMT Advanced",
+      "matricule": "44",
+      "idUnique": "200450",
+      "nom": "Dustin Jones"
+    }
+  ]
+}
