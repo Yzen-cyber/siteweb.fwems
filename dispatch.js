@@ -1,91 +1,13 @@
-// DISPATCH.JS - Gestion du centre de dispatch
-// Simulation d'appels, unités et interventions
+// DISPATCH.JS - Centre de Dispatch
+// En attente de données API/Serveur
 
 // ==============================
-// DONNÉES SIMULÉES
+// DONNÉES EN ATTENTE
 // ==============================
 let dispatchData = {
-    calls: [
-        {
-            id: 'APP001',
-            patient: 'Jean Martin',
-            address: '45 Rue de la Paix, Centre-Ville',
-            phone: '+33 6 12 34 56 78',
-            description: 'Douleur thoracique',
-            priority: 'Haute',
-            time: '14:35',
-            status: 'pending'
-        },
-        {
-            id: 'APP002',
-            patient: 'Marie Dubois',
-            address: '12 Avenue des Champs, Quartier Nord',
-            phone: '+33 6 98 76 54 32',
-            description: 'Accident de la route',
-            priority: 'Critique',
-            time: '14:42',
-            status: 'pending'
-        },
-        {
-            id: 'APP003',
-            patient: 'Pierre Lambert',
-            address: '78 Boulevard Central, Zone Est',
-            phone: '+33 6 45 67 89 01',
-            description: 'Chute avec blessure',
-            priority: 'Moyenne',
-            time: '14:50',
-            status: 'pending'
-        }
-    ],
-    units: [
-        {
-            id: 'UNIT-01',
-            name: 'Ambulance A01',
-            crew: 'Sarah Johnson & David Martinez',
-            location: 'Station Centre',
-            status: 'available'
-        },
-        {
-            id: 'UNIT-02',
-            name: 'Ambulance A02',
-            crew: 'Emily Rodriguez & James Wilson',
-            location: 'Interventions - Rue de la Paix',
-            status: 'active'
-        },
-        {
-            id: 'UNIT-03',
-            name: 'Ambulance A03',
-            crew: 'Lisa Anderson & Michael Taylor',
-            location: 'Station Nord',
-            status: 'available'
-        }
-    ],
-    interventions: [
-        {
-            id: 'INT001',
-            patient: 'Sophie Renard',
-            address: 'Rue de la Paix, Centre-Ville',
-            unit: 'Ambulance A02',
-            startTime: '14:15',
-            status: 'active'
-        },
-        {
-            id: 'INT002',
-            patient: 'Luc Bernard',
-            address: 'Avenue des Fleurs, Quartier Sud',
-            unit: 'Ambulance A04',
-            startTime: '13:45',
-            status: 'active'
-        },
-        {
-            id: 'INT003',
-            patient: 'Anne Moreau',
-            address: 'Place Centrale, Centre-Ville',
-            unit: 'Ambulance A05',
-            startTime: '13:30',
-            status: 'active'
-        }
-    ]
+    calls: [],
+    units: [],
+    interventions: []
 };
 
 // ==============================
@@ -95,9 +17,6 @@ function initDispatch() {
     displayDispatchCalls();
     displayDispatchUnits();
     displayDispatchInterventions();
-    
-    // Simuler l'arrivée d'appels toutes les 30 secondes
-    setInterval(simulateIncomingCall, 30000);
 }
 
 // ==============================
@@ -107,7 +26,14 @@ function displayDispatchCalls() {
     const container = document.getElementById('dispatchCallsList');
     
     if (!dispatchData.calls || dispatchData.calls.length === 0) {
-        container.innerHTML = '<div style="text-align: center; color: #999; padding: 20px;"><i class="fas fa-phone-slash"></i> Aucun appel en attente</div>';
+        container.innerHTML = `
+            <div style="text-align: center; color: #999; padding: 40px 20px; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <i class="fas fa-hourglass-half" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.5;"></i>
+                <h4 style="margin: 0; color: #666;">En attente de données</h4>
+                <p style="font-size: 0.85rem; margin: 5px 0 0 0;">Aucun appel actuellement</p>
+                <p style="font-size: 0.75rem; color: #AAA; margin-top: 10px;">Connectez une source de données API/Serveur</p>
+            </div>
+        `;
         return;
     }
     
@@ -142,7 +68,14 @@ function displayDispatchUnits() {
     const container = document.getElementById('dispatchUnitsList');
     
     if (!dispatchData.units || dispatchData.units.length === 0) {
-        container.innerHTML = '<div style="text-align: center; color: #999; padding: 20px;"><i class="fas fa-ban"></i> Aucune unité disponible</div>';
+        container.innerHTML = `
+            <div style="text-align: center; color: #999; padding: 40px 20px; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <i class="fas fa-hourglass-half" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.5;"></i>
+                <h4 style="margin: 0; color: #666;">En attente de données</h4>
+                <p style="font-size: 0.85rem; margin: 5px 0 0 0;">Aucune unité disponible</p>
+                <p style="font-size: 0.75rem; color: #AAA; margin-top: 10px;">Connectez une source de données API/Serveur</p>
+            </div>
+        `;
         return;
     }
     
@@ -174,7 +107,14 @@ function displayDispatchInterventions() {
     const container = document.getElementById('dispatchInterventionsList');
     
     if (!dispatchData.interventions || dispatchData.interventions.length === 0) {
-        container.innerHTML = '<div style="text-align: center; color: #999; padding: 20px;"><i class="fas fa-check-circle"></i> Aucune intervention active</div>';
+        container.innerHTML = `
+            <div style="text-align: center; color: #999; padding: 40px 20px; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <i class="fas fa-hourglass-half" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.5;"></i>
+                <h4 style="margin: 0; color: #666;">En attente de données</h4>
+                <p style="font-size: 0.85rem; margin: 5px 0 0 0;">Aucune intervention active</p>
+                <p style="font-size: 0.75rem; color: #AAA; margin-top: 10px;">Connectez une source de données API/Serveur</p>
+            </div>
+        `;
         return;
     }
     
@@ -202,28 +142,8 @@ function displayDispatchInterventions() {
 // ACTIONS
 // ==============================
 function assignUnit(callId) {
-    alert(`Unité assignée à l'appel ${callId}`);
-    // Ici on pourrait implémenter l'API pour assigner une unité
-}
-
-function simulateIncomingCall() {
-    const names = ['Luc Renard', 'Sophie Martin', 'Pierre Dumont', 'Anne Lefevre', 'Jacques Bernard'];
-    const addresses = ['15 Rue de la Paix', '42 Avenue Central', '78 Boulevard Nord', '23 Place Est', '56 Rue Ouest'];
-    const descriptions = ['Malaise général', 'Douleur abdominale', 'Trauma léger', 'Difficultés respiratoires', 'Brûlure'];
-    
-    const newCall = {
-        id: 'APP' + String(Math.random()).slice(2, 5).padStart(3, '0'),
-        patient: names[Math.floor(Math.random() * names.length)],
-        address: addresses[Math.floor(Math.random() * addresses.length)],
-        phone: '+33 6 ' + Math.floor(Math.random() * 100) + ' ' + Math.floor(Math.random() * 100) + ' ' + Math.floor(Math.random() * 100),
-        description: descriptions[Math.floor(Math.random() * descriptions.length)],
-        priority: ['Basse', 'Moyenne', 'Haute', 'Critique'][Math.floor(Math.random() * 4)],
-        time: new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
-        status: 'pending'
-    };
-    
-    dispatchData.calls.push(newCall);
-    displayDispatchCalls();
+    alert(`[Système en attente] Unité assignée à l'appel ${callId}`);
+    // Sera connecté à l'API une fois disponible
 }
 
 // ==============================
