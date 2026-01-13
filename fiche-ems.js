@@ -1,55 +1,39 @@
 // FICHE-EMS.JS - Gestion des fiches EMS (Direction et Supervision uniquement)
-// Création, consultation et gestion des fiches d'intervention
+// Création, consultation et gestion des fiches d'intervention liées aux employés
 
 // ==============================
-// DONNÉES SIMULÉES
+// DONNÉES DYNAMIQUES - Liées aux employés
 // ==============================
-let fichesEMSData = [
-    {
-        id: 'FICHE-2026-001',
-        date: '13/01/2026',
-        patient: 'Jean Martin',
-        age: 45,
-        address: '45 Rue de la Paix',
-        phone: '+33 6 12 34 56 78',
-        personnel: 'Sarah Johnson & David Martinez',
-        diagnostic: 'Douleur thoracique',
-        treatment: 'Monitoring cardiaque, O2, Transport CHU',
-        status: 'complete',
-        createdBy: 'Sarah Johnson',
-        createdAt: '14:35'
-    },
-    {
-        id: 'FICHE-2026-002',
-        date: '13/01/2026',
-        patient: 'Marie Dubois',
-        age: 32,
-        address: '12 Avenue des Champs',
-        phone: '+33 6 98 76 54 32',
-        personnel: 'Emily Rodriguez & James Wilson',
-        diagnostic: 'Trauma multi-sites',
-        treatment: 'Immobilisation, Analgésie, Transport CHU urgence',
-        status: 'en-cours',
-        createdBy: 'Emily Rodriguez',
-        createdAt: '14:42'
-    },
-    {
-        id: 'FICHE-2026-003',
-        date: '12/01/2026',
-        patient: 'Pierre Lambert',
-        age: 67,
-        address: '78 Boulevard Central',
-        phone: '+33 6 45 67 89 01',
-        personnel: 'Lisa Anderson & Michael Taylor',
-        diagnostic: 'Chute avec blessure au genou',
-        treatment: 'Bandage, Analgésie, Domicile',
-        status: 'archivee',
-        createdBy: 'Lisa Anderson',
-        createdAt: '10:15'
+let fichesEMSData = [];
+
+// Fonction pour générer les fiches basées sur les employés
+function generateFichesFromEmployees() {
+    if (!window.staffData || window.staffData.length === 0) {
+        return [];
     }
-];
+    
+    // Créer des fiches pour les employés EMS uniquement
+    const emsStaff = window.staffData.filter(staff => staff.role === 'EMS');
+    
+    return emsStaff.slice(0, 5).map((employee, index) => ({
+        id: `FICHE-2026-${String(index + 1).padStart(3, '0')}`,
+        date: new Date().toLocaleDateString('fr-FR'),
+        patient: `Patient ${index + 1}`,
+        age: 45 + index,
+        address: `${Math.floor(Math.random() * 100)} Rue de la Ville`,
+        phone: `+33 6 ${String(Math.floor(Math.random() * 100)).padStart(2, '0')} ${String(Math.floor(Math.random() * 100)).padStart(2, '0')} ${String(Math.floor(Math.random() * 100)).padStart(2, '0')}`,
+        personnel: employee.nom,
+        personnelId: employee.id,
+        grade: employee.grade,
+        diagnostic: 'En attente d\'informations',
+        treatment: 'En attente d\'informations',
+        status: 'en-cours',
+        createdBy: employee.nom,
+        createdAt: new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
+    }));
+}
 
-let filteredFichesEMS = [...fichesEMSData];
+let filteredFichesEMS = [];
 
 // ==============================
 // INITIALISATION
@@ -67,6 +51,10 @@ function initFicheEMS() {
         `;
         return;
     }
+    
+    // Générer les fiches à partir des employés
+    fichesEMSData = generateFichesFromEmployees();
+    filteredFichesEMS = [...fichesEMSData];
     
     displayFichesEMS(filteredFichesEMS);
 }
@@ -101,7 +89,10 @@ function displayFichesEMS(fiches) {
             </div>
             
             <div class="fiche-patient-info">
-                <div class="fiche-label"><i class="fas fa-user"></i> Patient</div>
+                <div class="fiche-label"><i class="fas fa-user"></i> Employé Responsable</div>
+                <div class="fiche-value">${fiche.personnel} (${fiche.grade})</div>
+                
+                <div class="fiche-label" style="margin-top: 8px;"><i class="fas fa-user-injured"></i> Patient</div>
                 <div class="fiche-value">${fiche.patient}, ${fiche.age} ans</div>
                 
                 <div class="fiche-label" style="margin-top: 8px;"><i class="fas fa-map-marker-alt"></i> Adresse</div>
@@ -109,9 +100,6 @@ function displayFichesEMS(fiches) {
                 
                 <div class="fiche-label" style="margin-top: 8px;"><i class="fas fa-phone"></i> Téléphone</div>
                 <div class="fiche-value">${fiche.phone}</div>
-                
-                <div class="fiche-label" style="margin-top: 8px;"><i class="fas fa-users"></i> Personnel</div>
-                <div class="fiche-value">${fiche.personnel}</div>
                 
                 <div class="fiche-label" style="margin-top: 8px;"><i class="fas fa-stethoscope"></i> Diagnostic</div>
                 <div class="fiche-value">${fiche.diagnostic}</div>
