@@ -1820,6 +1820,7 @@ body::before {
     flex-direction: column;
     min-height: 100vh;
     background: linear-gradient(135deg, #FFF0F5 0%, #E6E6FA 50%, #F0F8FF 100%);
+    overflow-x: hidden;
 }
 
 /* Navbar */
@@ -1887,6 +1888,16 @@ body::before {
     display: flex;
     align-items: center;
     gap: 20px;
+    flex-shrink: 0;
+}
+
+.avatar-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid white;
+    display: block;
+    object-fit: cover;
 }
 
 .user-info {
@@ -3952,6 +3963,229 @@ body::before {
 .fiche-btn:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transform: translateY(-2px);
+}
+
+.fiche-btn:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+/* ===== STYLES ONGLET FICHES EMPLOYÉE ===== */
+.fiche-employe-controls {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(255, 105, 180, 0.08), rgba(65, 105, 225, 0.08));
+    border-radius: var(--border-radius);
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
+.fiche-employe-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    min-width: 200px;
+}
+
+.fiche-employe-filter label {
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.fiche-employe-filter select,
+.fiche-employe-filter input {
+    padding: 10px 15px;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    background: white;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.fiche-employe-filter select:hover,
+.fiche-employe-filter input:hover {
+    border-color: var(--secondary-color);
+    box-shadow: 0 3px 10px rgba(65, 105, 225, 0.15);
+}
+
+.fiche-employe-filter select:focus,
+.fiche-employe-filter input:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(65, 105, 225, 0.2);
+}
+
+.fiches-employe-container {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    animation: fadeInUp 0.6s ease;
+}
+
+.fiche-employe-card {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+    border-left: 5px solid var(--primary-color);
+    transition: var(--transition);
+    animation: slideIn 0.5s ease backwards;
+    position: relative;
+    overflow: hidden;
+}
+
+.fiche-employe-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.fiche-employe-card:hover::before {
+    transform: scaleX(1);
+}
+
+.fiche-employe-card:hover {
+    box-shadow: var(--box-shadow-hover);
+    transform: translateY(-5px);
+}
+
+.fiche-employe-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.fiche-employe-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 4px;
+}
+
+.fiche-employe-grade {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.fiche-employe-role {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.fiche-employe-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.employe-section {
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.employe-section:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.employe-section-highlighted {
+    background: linear-gradient(135deg, rgba(255, 105, 180, 0.05), rgba(255, 105, 180, 0.08));
+    border: 1px solid rgba(255, 105, 180, 0.2);
+}
+
+.employe-section-salary {
+    background: linear-gradient(135deg, rgba(34, 139, 34, 0.05), rgba(34, 139, 34, 0.08));
+    border: 1px solid rgba(34, 139, 34, 0.2);
+}
+
+.employe-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.employe-value {
+    color: var(--text-color);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.employe-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+}
+
+.stat-label {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.stat-value {
+    color: var(--text-color);
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.employe-status {
+    padding: 10px;
+    background: linear-gradient(135deg, rgba(255, 165, 0, 0.1), rgba(255, 165, 0, 0.05));
+    border-left: 3px solid #FFA500;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: #FF8C00;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.employe-status i {
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* Responsive */
