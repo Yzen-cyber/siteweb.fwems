@@ -487,4 +487,4 @@ window.staffData = [
         hoursPerWeek: 20,
         salaryGrid: "ems"
     }
-];;
+];

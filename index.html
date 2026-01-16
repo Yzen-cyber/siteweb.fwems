@@ -40,20 +40,22 @@
         <nav class="navbar">
             <div class="navbar-brand"><i class="fas fa-hospital"></i> <span>EMS STFH</span></div>
             <div class="navbar-menu">
-                <button class="nav-btn active" onclick="switchTab('accueil')"><i class="fas fa-home"></i> <span>Accueil</span></button>
-                <button class="nav-btn" onclick="switchTab('effectif')"><i class="fas fa-users"></i> <span>Effectif</span></button>
-                <button class="nav-btn" onclick="switchTab('fiches-employe')"><i class="fas fa-user-clock"></i> <span>Fiches Employée</span></button>
-                <button class="nav-btn" onclick="switchTab('dispatch')"><i class="fas fa-headset"></i> <span>Dispatch</span></button>
-                <button class="nav-btn" onclick="switchTab('fiche-ems')"><i class="fas fa-file-alt"></i> <span>Fiche EMS</span></button>
-                <button class="nav-btn" onclick="switchTab('salaires')"><i class="fas fa-money-bill-wave"></i> <span>Salaires</span></button>
-                <button class="nav-btn" onclick="switchTab('hierarchie')"><i class="fas fa-sitemap"></i> <span>Hiérarchie</span></button>
-                <button class="nav-btn" onclick="switchTab('medicaments')"><i class="fas fa-pills"></i> <span>Médicaments</span></button>
-                <button class="nav-btn" id="logsBtn" onclick="switchTab('logs')" style="display: none;"><i class="fas fa-history"></i> <span>Logs</span></button>
+                <button class="nav-btn active" onclick="switchTab('accueil', this)"><i class="fas fa-home"></i> <span>Accueil</span></button>
+                <button class="nav-btn" onclick="switchTab('effectif', this)"><i class="fas fa-users"></i> <span>Effectif</span></button>
+                <button class="nav-btn" onclick="switchTab('dispatch', this)"><i class="fas fa-headset"></i> <span>Dispatch</span></button>
+                <button class="nav-btn" onclick="switchTab('codes-radio', this)"><i class="fas fa-broadcast-tower"></i> <span>Codes Radio</span></button>
+                <button class="nav-btn" onclick="switchTab('salaires', this)"><i class="fas fa-money-bill-wave"></i> <span>Salaires</span></button>
+                <button class="nav-btn" onclick="switchTab('hierarchie', this)"><i class="fas fa-sitemap"></i> <span>Hiérarchie</span></button>
+                <button class="nav-btn" onclick="switchTab('medicaments', this)"><i class="fas fa-pills"></i> <span>Médicaments</span></button>
+                <button class="nav-btn" id="logsBtn" onclick="switchTab('logs', this)" style="display: none;"><i class="fas fa-history"></i> <span>Logs</span></button>
             </div>
             <div class="navbar-user">
                 <img id="userAvatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23FF69B4' width='100' height='100'/%3E%3C/svg%3E" alt="Avatar" class="avatar-img">
                 <div class="user-info"><i class="fas fa-user-circle"></i> <div><div id="userDisplayName">Utilisateur</div><small id="userRole">Rôle</small></div></div>
-                <button class="logout-btn" onclick="handleLogout()" title="Déconnexion"><i class="fas fa-power-off"></i></button>
+                <div class="user-actions">
+                    <button class="user-action-btn" onclick="openProfileModal()" title="Mon Profil"><i class="fas fa-user-cog"></i></button>
+                    <button class="logout-btn" onclick="handleLogout()" title="Déconnexion"><i class="fas fa-power-off"></i></button>
+                </div>
             </div>
         </nav>
 
@@ -68,27 +70,6 @@
                     <div class="dashboard-card"><div class="card-icon"><i class="fas fa-chart-line"></i></div><h3>Salaire Mensuel</h3><p class="card-count" id="totalSalary">--</p><small>Moyenne</small></div>
                 </div>
                 <div class="info-section"><h2><i class="fas fa-info-circle"></i> À propos du système</h2><p>Ce système gère l'ensemble du personnel médical avec :</p><ul><li>Gestion des effectifs par rôle</li><li>Calcul automatique des salaires</li><li>Hiérarchie organisationnelle</li><li>Suivi des connexions pour l'administration</li></ul></div>
-            </div>
-
-            <!-- ONGLET FICHES EMPLOYÉE -->
-            <div class="tab-pane" id="tab-fiches-employe">
-                <div class="page-header"><h1><i class="fas fa-user-clock"></i> Fiches Employée</h1><p>Suivi des heures travaillées et salaires</p></div>
-                <div class="fiche-employe-controls">
-                    <div class="fiche-employe-filter">
-                        <label><i class="fas fa-filter"></i> Filtrer par rôle :</label>
-                        <select id="ficheEmployeRoleFilter" onchange="filterFichesEmploye()">
-                            <option value="">Tous les rôles</option>
-                            <option value="Direction">Direction</option>
-                            <option value="Supervision">Supervision</option>
-                            <option value="EMS">Personnel EMS</option>
-                        </select>
-                    </div>
-                    <div class="fiche-employe-filter">
-                        <label><i class="fas fa-search"></i> Rechercher :</label>
-                        <input type="text" id="ficheEmployeSearch" placeholder="Nom de l'employé..." onkeyup="filterFichesEmploye()">
-                    </div>
-                </div>
-                <div class="fiches-employe-container" id="fichesEmployeContainer"></div>
             </div>
 
             <!-- ONGLET EFFECTIF -->
@@ -138,22 +119,278 @@
                 </div>
             </div>
 
-            <!-- ONGLET FICHE EMS -->
-            <div class="tab-pane" id="tab-fiche-ems">
-                <div class="page-header"><h1><i class="fas fa-file-alt"></i> Fiches EMS</h1><p>Gestion des fiches d'intervention EMS</p></div>
-                <div class="fiche-ems-controls">
-                    <button class="btn-primary" onclick="createNewFicheEMS()"><i class="fas fa-plus"></i> Créer une fiche</button>
-                    <div class="fiche-search-bar">
-                        <input type="text" id="ficheSearch" placeholder="Rechercher par numéro, patient..." onkeyup="filterFichesEMS()">
-                        <select id="ficheStatusFilter" onchange="filterFichesEMS()">
-                            <option value="">Tous les statuts</option>
-                            <option value="en-cours">En Cours</option>
-                            <option value="complete">Complètée</option>
-                            <option value="archivee">Archivée</option>
-                        </select>
+            <!-- ONGLET CODES RADIO -->
+            <div class="tab-pane" id="tab-codes-radio">
+                <div class="page-header"><h1><i class="fas fa-broadcast-tower"></i> Codes Radio EMS Los Angeles</h1><p>Référence complète des codes de communication radio</p></div>
+                
+                <div class="codes-radio-container">
+                    <div class="codes-search-bar">
+                        <div class="search-group">
+                            <label><i class="fas fa-search"></i> Rechercher un code :</label>
+                            <input type="text" id="codeSearch" placeholder="Ex: 10-4, accident..." onkeyup="filterCodes()">
+                        </div>
+                        <div class="filter-group">
+                            <label><i class="fas fa-filter"></i> Catégorie :</label>
+                            <select id="codeCategoryFilter" onchange="filterCodes()">
+                                <option value="">Toutes les catégories</option>
+                                <option value="standard">Codes Standard (10-1 à 10-99)</option>
+                                <option value="emergency">Urgences Médicales</option>
+                                <option value="traffic">Circulation</option>
+                                <option value="status">Statut des Unités</option>
+                                <option value="response">Types de Réponse</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="codes-grid" id="codesGrid">
+                        <!-- Codes Standard 10-1 à 10-99 -->
+                        <div class="code-card" data-category="standard">
+                            <div class="code-number">10-1</div>
+                            <div class="code-description">Réception faible / Problème de transmission</div>
+                            <div class="code-response">Vérifiez votre équipement radio</div>
+                        </div>
+                        
+                        <div class="code-card" data-category="standard">
+                            <div class="code-number">10-2</div>
+                            <div class="code-description">Réception bonne</div>
+                            <div class="code-response">Transmission claire et nette</div>
+                        </div>
+                        
+                        <div class="code-card" data-category="standard">
+                            <div class="code-number">10-3</div>
+                            <div class="code-description">Arrêt de transmission / Pause</div>
+                            <div class="code-response">Cesser la transmission immédiatement</div>
+                        </div>
+                        
+                        <div class="code-card" data-category="standard">
+                            <div class="code-number">10-4</div>
+                            <div class="code-description">Message reçu / Compris</div>
+                            <div class="code-response">Message bien reçu et compris</div>
+                        </div>
+                        
+                        <div class="code-card" data-category="standard">
+                            <div class="code-number">10-5</div>
+                            <div class="code-description">Relais de message</div>
+                            <div class="code-response">Transmettre le message à une autre unité</div>
+                        </div>
+                        
+                        <div class="code-card" data-category="standard">
+                            <div class="code-number">10-6</div>
+                            <div class="code-description">Occupé / En intervention</div>
+                            <div class="code-response">Unité actuellement indisponible</div>
+                        </div>
+                        
+                        <div class="code-card" data-category="standard">
+                            <div class="code-number">10-7</div>
+                            <div class="code-description">Hors service / Fin de service</div>
+                            <div class="code-response">Unité termine son service</div>
+                        </div>
+                        
+                        <div class="code-card" data-category="standard">
+                            <div class="code-number">10-8</div>
+                            <div class="code-description">En service / Disponible</div>
+                            <div class="code-response">Unité prête pour intervention</div>
+                        </div>
+                        
+                        <div class="code-card" data-category="standard">
+                            <div class="code-number">10-9</div>
+                            <div class="code-description">Répétez le message</div>
+                            <div class="code-response">Message non compris, répétez</div>
+                        </div>
+                        
+                        <div class="code-card" data-category="standard">
+                            <div class="code-number">10-10</div>
+                            <div class="code-description">Fin de service / Terminé</div>
+                            <div class="code-response">Mission accomplie, retour à la base</div>
+                        </div>
+                        
+                        <!-- Codes d'urgence médicale -->
+                        <div class="code-card emergency" data-category="emergency">
+                            <div class="code-number">10-50</div>
+                            <div class="code-description">Accident de la route</div>
+                            <div class="code-response">Intervention prioritaire - Accidentologie</div>
+                        </div>
+                        
+                        <div class="code-card emergency" data-category="emergency">
+                            <div class="code-number">10-51</div>
+                            <div class="code-description">Victime blessée</div>
+                            <div class="code-response">Urgence médicale - Trauma</div>
+                        </div>
+                        
+                        <div class="code-card emergency" data-category="emergency">
+                            <div class="code-number">10-52</div>
+                            <div class="code-description">Ambulance nécessaire</div>
+                            <div class="code-response">Demande d'unité médicale d'urgence</div>
+                        </div>
+                        
+                        <div class="code-card emergency" data-category="emergency">
+                            <div class="code-number">10-53</div>
+                            <div class="code-description">Patient décédé</div>
+                            <div class="code-response">Mort survenue - Coroner requis</div>
+                        </div>
+                        
+                        <div class="code-card emergency" data-category="emergency">
+                            <div class="code-number">10-54</div>
+                            <div class="code-description">Animal blessé</div>
+                            <div class="code-response">Service vétérinaire ou contrôle animalier</div>
+                        </div>
+                        
+                        <div class="code-card emergency" data-category="emergency">
+                            <div class="code-number">10-55</div>
+                            <div class="code-description">Transport médical</div>
+                            <div class="code-response">Transfert inter-hospitalier</div>
+                        </div>
+                        
+                        <div class="code-card emergency" data-category="emergency">
+                            <div class="code-number">10-56</div>
+                            <div class="code-description">Intoxication</div>
+                            <div class="code-response">Urgence toxicologique</div>
+                        </div>
+                        
+                        <!-- Codes de circulation -->
+                        <div class="code-card" data-category="traffic">
+                            <div class="code-number">10-11</div>
+                            <div class="code-description">Vérification de plaque d'immatriculation</div>
+                            <div class="code-response">Contrôle véhicule suspect</div>
+                        </div>
+                        
+                        <div class="code-card" data-category="traffic">
+                            <div class="code-number">10-12</div>
+                            <div class="code-description">Visiteurs présents</div>
+                            <div class="code-response">Personnes étrangères sur les lieux</div>
+                        </div>
+                        
+                        <div class="code-card" data-category="traffic">
+                            <div class="code-number">10-13</div>
+                            <div class="code-description">Circulation dangereuse</div>
+                            <div class="code-response">Route à risque - Circulation dense</div>
+                        </div>
+                        
+                        <!-- Codes de statut -->
+                        <div class="code-card" data-category="status">
+                            <div class="code-number">10-15</div>
+                            <div class="code-description">Prisonnier en custody</div>
+                            <div class="code-response">Transport de personne arrêtée</div>
+                        </div>
+                        
+                        <div class="code-card" data-category="status">
+                            <div class="code-number">10-19</div>
+                            <div class="code-description">Retour à la base</div>
+                            <div class="code-response">Unité rentre au poste</div>
+                        </div>
+                        
+                        <div class="code-card" data-category="status">
+                            <div class="code-number">10-23</div>
+                            <div class="code-description">Arrivé sur les lieux</div>
+                            <div class="code-response">Unité sur site d'intervention</div>
+                        </div>
+                        
+                        <div class="code-card" data-category="status">
+                            <div class="code-number">10-28</div>
+                            <div class="code-description">Vérification de plaque</div>
+                            <div class="code-response">Contrôle d'identité véhicule</div>
+                        </div>
+                        
+                        <!-- Codes de réponse -->
+                        <div class="code-card" data-category="response">
+                            <div class="code-number">10-31</div>
+                            <div class="code-description">Crime en cours</div>
+                            <div class="code-response">Intervention criminelle immédiate</div>
+                        </div>
+                        
+                        <div class="code-card" data-category="response">
+                            <div class="code-number">10-32</div>
+                            <div class="code-description">Homme armé</div>
+                            <div class="code-response">Intervention avec précaution extrême</div>
+                        </div>
+                        
+                        <div class="code-card" data-category="response">
+                            <div class="code-number">10-33</div>
+                            <div class="code-description">Urgence - Alerte générale</div>
+                            <div class="code-response">Toutes unités disponibles requises</div>
+                        </div>
+                        
+                        <!-- Codes EMS spécifiques Los Angeles -->
+                        <div class="code-card emergency" data-category="emergency">
+                            <div class="code-number">10-70</div>
+                            <div class="code-description">Arrêt cardiaque</div>
+                            <div class="code-response">Code Blue - RCP immédiate</div>
+                        </div>
+                        
+                        <div class="code-card emergency" data-category="emergency">
+                            <div class="code-number">10-71</div>
+                            <div class="code-description">Accouchement d'urgence</div>
+                            <div class="code-response">Naissance imminente - Obstétrique</div>
+                        </div>
+                        
+                        <div class="code-card emergency" data-category="emergency">
+                            <div class="code-number">10-72</div>
+                            <div class="code-description">Maladie mentale</div>
+                            <div class="code-response">Intervention psychiatrique</div>
+                        </div>
+                        
+                        <div class="code-card emergency" data-category="emergency">
+                            <div class="code-number">10-73</div>
+                            <div class="code-description">Patient psychotique violent</div>
+                            <div class="code-response">Intervention spécialisée - Sédation</div>
+                        </div>
+                        
+                        <div class="code-card emergency" data-category="emergency">
+                            <div class="code-number">10-74</div>
+                            <div class="code-description">Homicide / Suicide</div>
+                            <div class="code-response">Intervention médico-légale</div>
+                        </div>
+                        
+                        <div class="code-card emergency" data-category="emergency">
+                            <div class="code-number">10-75</div>
+                            <div class="code-description">Maladie contagieuse</div>
+                            <div class="code-response">Protocole d'isolement - EPI requis</div>
+                        </div>
+                        
+                        <div class="code-card emergency" data-category="emergency">
+                            <div class="code-number">10-76</div>
+                            <div class="code-description">Patient inconscient</div>
+                            <div class="code-response">Évaluation neurologique urgente</div>
+                        </div>
+                        
+                        <div class="code-card emergency" data-category="emergency">
+                            <div class="code-number">10-77</div>
+                            <div class="code-description">Victime de viol / Agression sexuelle</div>
+                            <div class="code-response">Protocole médico-légal - Discrétion</div>
+                        </div>
+                        
+                        <div class="code-card emergency" data-category="emergency">
+                            <div class="code-number">10-78</div>
+                            <div class="code-description">Patient diabétique</div>
+                            <div class="code-response">Hypo/hyperglycémie - Insulinothérapie</div>
+                        </div>
+                        
+                        <div class="code-card emergency" data-category="emergency">
+                            <div class="code-number">10-79</div>
+                            <div class="code-description">Patient épileptique en crise</div>
+                            <div class="code-response">Crise convulsive - Benzodiazépines</div>
+                        </div>
+                        
+                        <!-- Codes supplémentaires Los Angeles -->
+                        <div class="code-card" data-category="status">
+                            <div class="code-number">10-97</div>
+                            <div class="code-description">Arrivée à l'hôpital</div>
+                            <div class="code-response">Patient transféré aux urgences</div>
+                        </div>
+                        
+                        <div class="code-card" data-category="status">
+                            <div class="code-number">10-98</div>
+                            <div class="code-description">Mission terminée</div>
+                            <div class="code-response">Retour disponible pour nouvelle intervention</div>
+                        </div>
+                        
+                        <div class="code-card" data-category="emergency">
+                            <div class="code-number">10-99</div>
+                            <div class="code-description">Urgence absolue - Code 99</div>
+                            <div class="code-response">Toutes unités disponibles - Situation critique</div>
+                        </div>
                     </div>
                 </div>
-                <div class="fiches-container" id="fichesEMSContainer"></div>
             </div>
 
             <!-- ONGLET MÉDICAMENTS -->
@@ -199,7 +436,6 @@
         </div>
     </div>
 
-    <!-- MODAL PROFIL -->
     <div class="profile-modal" id="profileModal">
         <div class="modal-content profile-modal-content">
             <div class="modal-header">
@@ -282,6 +518,8 @@
                                 <select id="languageSetting">
                                     <option value="fr" selected>Français</option>
                                     <option value="en">English</option>
+                                    <option value="es">Español</option>
+                                    <option value="de">Deutsch</option>
                                 </select>
                             </div>
                             <div class="setting-item">
@@ -290,9 +528,22 @@
                                     <small>Apparence de l'interface</small>
                                 </div>
                                 <div class="theme-options">
-                                    <label><input type="radio" name="theme" value="light" checked> Clair</label>
-                                    <label><input type="radio" name="theme" value="dark"> Sombre</label>
-                                    <label><input type="radio" name="theme" value="auto"> Automatique</label>
+                                    <label><input type="radio" name="theme" value="light" checked> <i class="fas fa-sun"></i> Clair</label>
+                                    <label><input type="radio" name="theme" value="dark"> <i class="fas fa-moon"></i> Sombre</label>
+                                    <label><input type="radio" name="theme" value="auto"> <i class="fas fa-adjust"></i> Automatique</label>
+                                    <label><input type="radio" name="theme" value="blue"> <i class="fas fa-water"></i> Bleu</label>
+                                    <label><input type="radio" name="theme" value="purple"> <i class="fas fa-palette"></i> Violet</label>
+                                </div>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-label">
+                                    <label>Densité d'affichage</label>
+                                    <small>Espace entre les éléments</small>
+                                </div>
+                                <div class="density-options">
+                                    <label><input type="radio" name="density" value="compact" checked> Compact</label>
+                                    <label><input type="radio" name="density" value="comfortable"> Confortable</label>
+                                    <label><input type="radio" name="density" value="spacious"> Spacieux</label>
                                 </div>
                             </div>
                         </div>
@@ -306,6 +557,16 @@
                                 </div>
                                 <label class="toggle">
                                     <input type="checkbox" id="twoFactorAuth">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-label">
+                                    <label>Session prolongée</label>
+                                    <small>Rester connecté plus longtemps</small>
+                                </div>
+                                <label class="toggle">
+                                    <input type="checkbox" id="extendedSession">
                                     <span class="toggle-slider"></span>
                                 </label>
                             </div>
@@ -328,6 +589,16 @@
                             </div>
                             <div class="setting-item">
                                 <div class="setting-label">
+                                    <label>Notifications push</label>
+                                    <small>Alertes dans le navigateur</small>
+                                </div>
+                                <label class="toggle">
+                                    <input type="checkbox" id="pushNotifications">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-label">
                                     <label>Alertes système</label>
                                     <small>Notifications dans l'application</small>
                                 </div>
@@ -343,6 +614,16 @@
                                 </div>
                                 <label class="toggle">
                                     <input type="checkbox" id="loginNotifications">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-label">
+                                    <label>Notifications sonores</label>
+                                    <small>Sons pour les alertes</small>
+                                </div>
+                                <label class="toggle">
+                                    <input type="checkbox" id="soundNotifications" checked>
                                     <span class="toggle-slider"></span>
                                 </label>
                             </div>
@@ -370,10 +651,57 @@
                                     <span class="toggle-slider"></span>
                                 </label>
                             </div>
+                            <div class="setting-item">
+                                <div class="setting-label">
+                                    <label>Données d'activité</label>
+                                    <small>Enregistrer vos actions dans l'application</small>
+                                </div>
+                                <label class="toggle">
+                                    <input type="checkbox" id="activityTracking" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h3><i class="fas fa-desktop"></i> Interface</h3>
+                            <div class="setting-item">
+                                <div class="setting-label">
+                                    <label>Animations</label>
+                                    <small>Activer les animations de l'interface</small>
+                                </div>
+                                <label class="toggle">
+                                    <input type="checkbox" id="animationsEnabled" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-label">
+                                    <label>Barre latérale réduite</label>
+                                    <small>Réduire automatiquement la navigation</small>
+                                </div>
+                                <label class="toggle">
+                                    <input type="checkbox" id="sidebarCollapsed">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-label">
+                                    <label>Mode plein écran</label>
+                                    <small>Utiliser tout l'espace disponible</small>
+                                </div>
+                                <label class="toggle">
+                                    <input type="checkbox" id="fullscreenMode">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
                         </div>
 
                         <div class="settings-section danger-section">
                             <h3><i class="fas fa-exclamation-triangle"></i> Données & Compte</h3>
+                            <div class="setting-item">
+                                <button class="btn-secondary" onclick="exportSettings()"><i class="fas fa-download"></i> Exporter les paramètres</button>
+                            </div>
                             <div class="setting-item">
                                 <button class="btn-secondary" onclick="downloadDataExport()"><i class="fas fa-download"></i> Télécharger mes données</button>
                             </div>
@@ -384,6 +712,7 @@
 
                         <div class="settings-save">
                             <button class="btn-primary" onclick="saveSettings()"><i class="fas fa-check"></i> Enregistrer les modifications</button>
+                            <button class="btn-secondary" onclick="resetSettings()"><i class="fas fa-undo"></i> Réinitialiser</button>
                         </div>
                     </div>
                 </div>
@@ -399,8 +728,6 @@
     <script src="drugs.js"></script>
     <script src="medicaments.js"></script>
     <script src="dispatch.js"></script>
-    <script src="fiche-ems.js"></script>
-    <script src="fiches-employe.js"></script>
     <script src="login.js"></script>
     <script src="app.js"></script>
 </body>
